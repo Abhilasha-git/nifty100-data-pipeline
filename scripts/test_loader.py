@@ -4,4 +4,4 @@ from src.etl.loader import load_core_files
 
 datasets = load_core_files()
 
-print(datasets["cashflow"].columns.tolist())
+print(datasets["analysis"].columns.tolist())
