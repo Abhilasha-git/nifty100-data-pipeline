@@ -12,6 +12,9 @@ def create_database():
     Create SQLite database and execute schema.sql.
     """
 
+    if DB_PATH.exists():
+        DB_PATH.unlink()
+
     conn = sqlite3.connect(DB_PATH)
 
     with open(SCHEMA_PATH, "r", encoding="utf-8") as f:
@@ -22,7 +25,6 @@ def create_database():
 
     print("Database created successfully.")
 
-
 def load_data():
     """
     Load all datasets into SQLite.
@@ -30,11 +32,22 @@ def load_data():
 
     datasets = load_core_files()
 
+    companies = datasets["companies"]
+    valid_ids = set(companies["id"])
+
     conn = sqlite3.connect(DB_PATH)
 
     for table_name, df in datasets.items():
 
         print(f"Loading {table_name}...")
+
+        if table_name != "companies" and "company_id" in df.columns:
+            before = len(df)
+            df = df[df["company_id"].isin(valid_ids)]
+            removed = before - len(df)
+
+            if removed:
+                print(f"Removed {removed} invalid rows from {table_name}")
 
         df.to_sql(
             table_name,

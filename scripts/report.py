@@ -66,7 +66,72 @@ def main():
                 (SELECT COUNT(*) FROM analysis) AS analysis,
                 (SELECT COUNT(*) FROM documents) AS documents,
                 (SELECT COUNT(*) FROM prosandcons) AS prosandcons;
+        """,
+        "Top 10 Companies by Latest Net Profit": """
+            SELECT
+                c.company_name,
+                p.year,
+                p.net_profit
+            FROM companies c
+            JOIN profitandloss p
+                ON c.id = p.company_id
+            WHERE p.year = (
+                SELECT MAX(year)
+                FROM profitandloss p2
+                WHERE p2.company_id = p.company_id
+            )
+            ORDER BY p.net_profit DESC
+            LIMIT 10;
+        """,
+        
+        "Top 10 companies by Latest Sales": """
+            SELECT
+                c.company_name,
+                p.year,
+                p.sales
+            FROM companies c
+            JOIN profitandloss p
+                ON c.id = p.company_id
+            WHERE p.year = (
+                SELECT MAX(year)
+                FROM profitandloss p2
+                WHERE p2.company_id = p.company_id
+            )
+            ORDER BY p.sales DESC
+            LIMIT 10;
+        """,
+        "5 Random Companies": """
+            SELECT 
+                id,
+                company_name,
+                face_value,
+                book_value,
+                roce_percentage,
+                roe_percentage
+            FROM companies
+            ORDER BY RANDOM()
+            LIMIT 5;
+        """,
+        "Year Coverage": """
+            SELECT
+                company_id,
+                MIN(year) AS first_year,
+                MAX(year) AS last_year,
+                COUNT(year) AS total_years
+            FROM profitandloss
+            GROUP BY company_id
+            ORDER BY company_id;
+        """,
+        "Companies with Less Than 5 Years": """
+        SELECT 
+            company_id,
+            COUNT(year) AS total_years
+        FROM profitandloss
+        GROUP BY company_id
+        HAVING COUNT(year) < 5
+        ORDER BY total_years, company_id;
         """
+                
     }
 
     for title, query in reports.items():
