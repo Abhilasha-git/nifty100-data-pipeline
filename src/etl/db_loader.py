@@ -41,6 +41,21 @@ def load_data():
 
         print(f"Loading {table_name}...")
 
+        
+            # ---------- Add this block ----------
+        print("Shape:", df.shape)
+
+        if "company_id" in df.columns and "year" in df.columns:
+            duplicates = df[df.duplicated(
+                subset=["company_id", "year"],
+                keep=False
+            )]
+
+            if not duplicates.empty:
+                print(f"Duplicate rows found in {table_name}:")
+                print(duplicates)
+    # ---------- End of added block ----------
+
         if table_name != "companies" and "company_id" in df.columns:
             before = len(df)
             df = df[df["company_id"].isin(valid_ids)]
@@ -48,6 +63,19 @@ def load_data():
 
             if removed:
                 print(f"Removed {removed} invalid rows from {table_name}")
+        
+        if "company_id" in df.columns and "year" in df.columns:
+            before = len(df)
+
+            df = df.drop_duplicates(
+                subset=["company_id", "year"],
+                keep="first"
+            )
+
+            removed = before - len(df)
+
+            if removed:
+                print(f"Removed {removed} duplicate rows from {table_name}")
 
         df.to_sql(
             table_name,
