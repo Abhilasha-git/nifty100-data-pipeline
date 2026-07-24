@@ -178,6 +178,52 @@ def compute_ratios(df):
         ),
         axis=1
     )
+    
+    # ===========================
+# 5-Year CAGR
+# ===========================
+
+    df["revenue_cagr_5yr"] = None
+    df["pat_cagr_5yr"] = None
+    df["eps_cagr_5yr"] = None
+
+    for company, group in df.groupby("company_id"):
+
+    # Use only rows that have a valid financial year
+        group = (
+            group[group["year"].notna()]
+            .sort_values("year")
+        )
+
+        if len(group) < 6:
+            continue
+
+        start = group.iloc[-6]
+        end = group.iloc[-1]
+
+        rev, _ = revenue_cagr(
+            start["sales"],
+            end["sales"],
+            5
+        )
+
+        pat, _ = pat_cagr(
+            start["net_profit"],
+            end["net_profit"],
+            5
+        )
+
+        eps, _ = eps_cagr(
+            start["eps"],
+            end["eps"],
+            5
+        )
+
+        latest_index = end.name
+
+        df.loc[latest_index, "revenue_cagr_5yr"] = rev
+        df.loc[latest_index, "pat_cagr_5yr"] = pat
+        df.loc[latest_index, "eps_cagr_5yr"] = eps
 
     return df
 
@@ -202,6 +248,9 @@ def save_to_database(df):
         "cfo_pat_ratio",
         "cfo_quality_label",
         "capital_allocation_pattern",
+        "revenue_cagr_5yr",
+        "pat_cagr_5yr",
+        "eps_cagr_5yr",
     ]
 
     output = df[columns].copy()
