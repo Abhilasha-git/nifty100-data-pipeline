@@ -80,6 +80,53 @@ Thresholds can be modified without changing Python source code.
 
 ---
 
+### 📊 Interactive Streamlit Dashboard
+
+The project now includes a production-style multi-page Streamlit dashboard for exploring all Nifty 100 companies.
+
+Available screens:
+
+- 🏠 Home Dashboard
+- 🏢 Company Profile
+- 🔍 Stock Screener
+- 🤝 Peer Comparison
+- 📈 Trend Analysis
+- 🏭 Sector Analysis
+- 💰 Capital Allocation Map
+- 📄 Annual Reports
+
+Features include:
+
+- Financial KPI cards
+- Interactive Plotly visualizations
+- Company search
+- Peer benchmarking
+- Downloadable screener results
+- Sector analysis
+- Capital allocation treemap
+- Annual report links
+
+---
+
+### 💹 Valuation Module
+
+Automatically computes valuation metrics using market capitalization data.
+
+Calculates:
+
+- Free Cash Flow Yield
+- Sector Median P/E
+- Premium/Discount vs Sector
+- Valuation Flags
+
+Generated outputs:
+
+output/valuation_summary.xlsx
+
+output/valuation_flags.csv
+
+---
+
 ### 📄 Automated Reports
 
 The pipeline automatically generates:
@@ -152,35 +199,45 @@ nifty100-data-pipeline/
 │
 ├── output/
 │   ├── screener_output.xlsx
-│   └── peer_comparison.xlsx
+│   ├── peer_comparison.xlsx
+|   ├── valuation_summary.xlsx
+│   └── valuation_flags.csv
 │
 ├── reports/
 │   └── radar_charts/
-│       ├── ABB_radar.png
-│       ├── TCS_radar.png
-│       └── ...
 │
 ├── scripts/
 │
 ├── src/
 │   │
 │   ├── analytics/
-│   │   ├── cagr.py
-│   │   ├── cashflow_kpis.py
-│   │   ├── peer.py
-│   │   ├── peer_summary.py
-│   │   └── ratios.py
-│   │
+|   |
+|   ├──dashboard/
+│   │   ├── app.py
+│   │   ├── pages/
+│   │   │   ├── 01_home.py
+│   │   │   ├── 02_profile.py
+│   │   │   ├── 03_screener.py
+│   │   │   ├── 04_peers.py
+│   │   │   ├── 05_trends.py
+│   │   │   ├── 06_sectors.py
+│   │   │   ├── 07_capital.py
+│   │   │   └── 08_reports.py
+│   │   └── utils/
+│   │       └── db.py
+|   |
 │   ├── config/
 │   │   └── screener_config.yaml
 │   │
 │   ├── etl/
 │   │   ├── loader.py
 │   │   ├── normaliser.py
+|   |   ├── db_loader.py
 │   │   └── validator.py
 │   │
 │   ├── reports/
 │   │   ├── peer_report.py
+│   │   ├── company_report.py
 │   │   └── radar.py
 │   │
 │   ├── scoring/
@@ -188,6 +245,7 @@ nifty100-data-pipeline/
 │   │
 │   ├── screener/
 │   │   ├── engine.py
+│   │   ├── backtest.py
 │   │   └── export_excel.py
 │   │
 │   ├── utils/
@@ -232,6 +290,8 @@ nifty100-data-pipeline/
 - Python 3.14
 - Pandas
 - NumPy
+- Streamlit
+- Plotly
 - SQLite
 - OpenPyXL
 - Matplotlib
@@ -279,6 +339,27 @@ reports/
 
 ---
 
+# ▶ Running the Dashboard
+
+Launch the interactive dashboard:
+
+```bash
+streamlit run src/dashboard/app.py
+```
+
+The dashboard includes:
+
+- Home Dashboard
+- Company Profile
+- Stock Screener
+- Peer Comparison
+- Trend Analysis
+- Sector Analysis
+- Capital Allocation Map
+- Annual Reports
+
+---
+
 # 🧪 Running Tests
 
 Execute the complete test suite:
@@ -317,6 +398,9 @@ The project generates:
 - Excel Screening Reports
 - Peer Comparison Reports
 - Radar Chart Visualizations
+- Interactive Streamlit dashboard
+- Valuation Summary Workbook
+- Valuation Flags CSV
 
 ---
 
@@ -331,12 +415,18 @@ The project generates:
 - Automated testing using Pytest
 - Reusable analytics modules
 - Analyst-friendly YAML configuration
+- Interactive multi-page Streamlit dashboard
+- Plotly-based financial visualizations
+- Cached SQLite data layer
+- Capital allocation analysis
+- Annual report integration
+- Valuation engine with sector-relative analysis
 
 ---
 
 # 🔮 Future Enhancements
 
-- Streamlit Dashboard
+- Valuation Models (DCF & Relative Valuation)
 - Power BI Integration
 - Portfolio Optimizer
 - Valuation Models (DCF & Relative Valuation)
@@ -355,6 +445,23 @@ The project generates:
 ✅ Sprint 2 – Financial KPI Engine
 
 ✅ Sprint 3 – Screening & Peer Analytics
+
+✅ Sprint 4 – Interactive Dashboard & Valuation Module
+
+---
+
+# 📸 Dashboard Screens
+
+The Streamlit dashboard consists of:
+
+- 🏠 Home Dashboard
+- 🏢 Company Profile
+- 🔍 Stock Screener
+- 🤝 Peer Comparison
+- 📈 Trend Analysis
+- 🏭 Sector Analysis
+- 💰 Capital Allocation Map
+- 📄 Annual Reports
 
 ---
 
