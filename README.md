@@ -1,6 +1,23 @@
 # 📈 Nifty100 Data Pipeline
 
-A production-style financial analytics pipeline built in Python for analyzing Nifty 100 companies. The project automates financial KPI computation, peer-group benchmarking, composite quality scoring, configurable stock screening, and Excel report generation.
+A production-style financial analytics pipeline built in Python for analyzing Nifty 100 companies. The project automates financial KPI computation, peer-group benchmarking, composite quality scoring, configurable stock screening, Excel report generation, an interactive Streamlit dashboard, and valuation analysis.
+
+## 📌 Repository Overview
+
+This repository provides an end-to-end financial analytics platform for **92 Nifty 100 companies**. It includes:
+
+- 📥 Automated ETL pipeline for financial data processing
+- 📊 Financial KPI computation engine
+- ⭐ Composite Quality Scoring system
+- 🏢 Peer benchmarking and sector analytics
+- 🔍 Configurable stock screener
+- 📈 Interactive 8-page Streamlit dashboard
+- 💹 Valuation module with sector-relative P/E analysis
+- 📄 Automated Excel reports and annual report integration
+
+---
+
+# 🚀 Features
 
 ---
 
@@ -329,9 +346,10 @@ Generated outputs:
 
 ```
 output/
-│
 ├── screener_output.xlsx
-└── peer_comparison.xlsx
+├── peer_comparison.xlsx
+├── valuation_summary.xlsx
+└── valuation_flags.csv
 
 reports/
 └── radar_charts/
@@ -429,7 +447,6 @@ The project generates:
 - Valuation Models (DCF & Relative Valuation)
 - Power BI Integration
 - Portfolio Optimizer
-- Valuation Models (DCF & Relative Valuation)
 - Technical Indicator Engine
 - Automated Market Data APIs
 - Docker Deployment
@@ -448,20 +465,96 @@ The project generates:
 
 ✅ Sprint 4 – Interactive Dashboard & Valuation Module
 
+### Current Status
+
+✔ 8-screen Streamlit dashboard completed
+
+✔ Financial analytics pipeline completed
+
+✔ Valuation module completed
+
+✔ Interactive stock screener completed
+
+✔ Peer comparison and sector analytics completed
+
+✔ Annual reports explorer completed
+
+✔ Documentation updated
+
+✔ Ready for internship demonstration and evaluation
+
 ---
 
 # 📸 Dashboard Screens
 
 The Streamlit dashboard consists of:
 
-- 🏠 Home Dashboard
-- 🏢 Company Profile
-- 🔍 Stock Screener
-- 🤝 Peer Comparison
-- 📈 Trend Analysis
-- 🏭 Sector Analysis
-- 💰 Capital Allocation Map
-- 📄 Annual Reports
+## 🏠 Home Dashboard
+Displays overall market KPIs, sector distribution, and top quality companies.
+
+## 🏢 Company Profile
+Shows company information, financial KPIs, historical charts, and pros & cons.
+
+## 🔍 Stock Screener
+Interactive screener with configurable financial filters and CSV export.
+
+## 🤝 Peer Comparison
+Compare companies within peer groups using radar charts and KPI tables.
+
+## 📈 Trend Analysis
+Visualize historical financial metrics with multi-metric comparison.
+
+## 🏭 Sector Analysis
+Analyze companies within sectors using bubble charts and sector medians.
+
+## 💰 Capital Allocation Map
+Treemap visualization of companies grouped by capital allocation strategy.
+
+## 📄 Annual Reports
+Access historical annual report links directly from the dashboard.
+
+---
+
+# ⚡ Performance
+
+- Streamlit caching implemented using `@st.cache_data`
+- SQLite backend for fast local querying
+- Dashboard tested across all available dashboard screens
+- Charts render responsively without page overflow
+
+---
+
+# 📋 Sprint 4 Retrospective
+
+### UX Decisions
+
+- Used a multi-page Streamlit dashboard for intuitive navigation.
+- Added KPI cards for quick financial insights.
+- Used Plotly interactive charts for better visualization.
+- Implemented sidebar filters for dynamic analysis.
+- Added CSV download functionality for screener results.
+
+### Data Edge Cases
+
+- Missing financial values are displayed as **N/A** instead of causing errors.
+- Companies with limited historical data still render available charts.
+- Annual reports display **Report unavailable** when no valid URL exists.
+- Pros & Cons gracefully handle unavailable records.
+
+### Performance
+
+- Database queries are cached using `@st.cache_data(ttl=600)`.
+- Dashboard loads efficiently using SQLite backend.
+- Company Profile page loads within the expected performance range on local execution.
+
+### Key Deliverables
+
+- 8-screen Streamlit dashboard
+- Financial KPI engine
+- Interactive stock screener
+- Peer comparison dashboard
+- Valuation module
+- Automated valuation reports
 
 ---
 
