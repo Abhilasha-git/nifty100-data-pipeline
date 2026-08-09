@@ -558,6 +558,80 @@ Access historical annual report links directly from the dashboard.
 
 ---
 
+# 📋 Sprint 5 Retrospective
+
+### 📄 Automated Company Tear Sheets
+
+* Generated automated financial tear sheets for the Nifty 100 company universe.
+* Tear sheets include company information, key financial KPIs, revenue and profit trends, ROE vs ROCE, balance-sheet composition, cash-flow analysis, and pros & cons.
+* Companies with fewer than 3 years of available financial data were skipped and logged in `output/skipped_tearsheets.csv`.
+* Final output contains **91 company tear-sheet PDFs** because JIOFIN had only 2 years of available data.
+* Tear sheets were checked for minimum file size and all generated PDFs were above the 30 KB threshold.
+
+### 🏭 Sector Reports
+
+* Added automated sector-level report generation using the sector mapping in `data/raw/supporting_datasets/sectors.xlsx`.
+* The sector mapping covers **92 companies across 10 broad sectors**.
+* Generated 10 sector PDF reports under `reports/sector/`.
+* Sector reports summarize company-level financial metrics and provide sector-level analysis.
+
+### 💰 Cash-Flow Intelligence
+
+* Added cash-flow quality analysis using CFO/PAT relationships.
+* Added CapEx intensity classification.
+* Added free-cash-flow conversion metrics.
+* Added distress flags based on negative operating cash flow combined with positive financing cash flow.
+* Added deleveraging detection using changes in borrowings and financing cash flow.
+* Generated `output/cashflow_intelligence.xlsx` containing **92 companies**.
+* Generated `output/distress_alerts.csv` containing **13 distress alerts**.
+
+### 📊 Portfolio Summary
+
+* Generated `reports/portfolio/portfolio_summary.pdf`.
+* The portfolio summary contains **91 pages**, with one page per available company.
+* Companies are presented alphabetically by ticker.
+* The report provides a consolidated portfolio-level view of company financial KPIs.
+
+### 🧹 Data & Edge Cases
+
+* Preserved the existing 92-company universe while allowing report generation to skip companies without sufficient historical data.
+* JIOFIN was explicitly logged as having fewer than 3 years of data.
+* ATGL and SBIN contained missing financial statement components; the reporting pipeline handled these cases without stopping the complete batch.
+* Sector classification was sourced from the existing `sectors.xlsx` supporting dataset rather than being added as a new database column.
+
+### 📦 Sprint 5 Deliverables
+
+* `output/pros_cons_generated.csv` — pros and cons for all 92 companies.
+* `output/analysis_parsed.csv` — structured CAGR data from analysis data.
+* `output/cashflow_intelligence.xlsx` — CFO quality, CapEx intensity, FCF conversion, distress and deleveraging indicators for 92 companies.
+* `output/distress_alerts.csv` — companies identified with distress signals.
+* `reports/tearsheets/` — 91 generated company tear-sheet PDFs, with JIOFIN skipped due to insufficient history.
+* `reports/sector/` — 10 sector report PDFs.
+* `reports/portfolio/portfolio_summary.pdf` — 91-page portfolio summary.
+* `src/reports/tearsheet.py` — automated company tear-sheet generation.
+* `src/reports/sector_report.py` — automated sector report generation.
+* `src/reports/portfolio_summary.py` — automated portfolio summary generation.
+
+### 📈 Sprint 5 Outcome
+
+* Automated company-level reporting completed.
+* Sector-level reporting completed.
+* Portfolio summary generation completed.
+* Cash-flow intelligence extended to all 92 companies.
+* Pros and cons generated for all 92 companies, with one pro and one con for each company.
+* Reporting pipeline now handles missing and limited financial data without failing the complete batch.
+
+### 🔍 Review Status
+
+* Company tear-sheet generation verified.
+* Sector report generation verified across all 10 mapped sectors.
+* Portfolio summary PDF verified at 91 pages.
+* Cash-flow intelligence verified at 92 company rows.
+* Pros & Cons output verified at 92 unique companies with both `pro` and `con` entries.
+* Sprint 5 reporting and analytics deliverables completed.
+
+---
+
 # 📄 Disclaimer
 
 This project was developed as part of a financial analytics workflow for educational and engineering purposes. It should not be interpreted as investment advice.
