@@ -6,3 +6,14 @@ __pycache__/
 logs/
 output/
 .env
+# Investigation / temporary scripts
+check_tvsmotor_backups.py
+investigate_*.py
+
+# Raw-data backup files
+data/raw/*_before_*.xlsx
+
+# Generated reports
+reports/assets/
+reports/*.png
+reports/pytest_*.html
