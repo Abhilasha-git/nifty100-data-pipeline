@@ -74,3 +74,5 @@ virtualenv==21.6.1
 wcwidth==0.8.2
 win32_setctime==1.2.0
 xlsxwriter==3.2.9
+streamlit
+plotly
